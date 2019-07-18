@@ -1,14 +1,302 @@
 #VRML_SIM R2019a utf8
 WorldInfo {
-  info [
-  ]
 }
 Viewpoint {
-  orientation -0.7 0.7 0.2 0.75
-  position 1.2 1.6 2.3
-
+  orientation 1 1.3754877232563256e-16 5.764308270455827e-17 5.812388980384687
+  position 0.1807275827177576 0.7735024161922373 1.2833791775120753
 }
 TexturedBackground {
 }
 TexturedBackgroundLight {
+}
+Floor {
+}
+Robot {
+  translation 0.00021056656959164932 0.058749701364717744 -1.1274670179929827e-05
+  rotation 0.000299136092853728 0.00022878750343313748 0.9999999290869356 -0.003319688737072778
+  children [
+    DEF SH_BODY Group {
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.8 0 0
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.25 0.08 0.1
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -8.304065970919777e-08
+        axis 0 0 1
+        anchor -0.075 0 0.065
+      }
+      device [
+        RotationalMotor {
+          name "motor_right"
+          maxVelocity 52.36
+          maxTorque 100
+        }
+        PositionSensor {
+          name "position_right"
+          resolution 0.005235
+        }
+      ]
+      endPoint Solid {
+        translation -0.075 0 0.065
+        rotation 0.9999999999999981 -4.152032985459883e-08 -4.1520190051537314e-08 1.5707996938995765
+        children [
+          Shape {
+            appearance DEF BLACK PBRAppearance {
+              baseColor 0 0 0
+              roughness 1
+              metalness 0
+            }
+            geometry DEF WHEEL1 Cylinder {
+              height 0.03
+              radius 0.06
+            }
+          }
+        ]
+        boundingObject USE WHEEL1
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 1.7616498204178378e-08
+        axis 0 0 1
+        anchor 0.085 0 0.065
+      }
+      device [
+        RotationalMotor {
+          name "motor_right2"
+          maxVelocity 52.36
+          maxTorque 100
+        }
+        PositionSensor {
+          name "position_right2"
+          resolution 0.005235
+        }
+      ]
+      endPoint Solid {
+        translation 0.085 0 0.065
+        rotation 1 8.808249102089189e-09 8.808219443842363e-09 1.5707996938995745
+        children [
+          Shape {
+            appearance DEF BLACK PBRAppearance {
+              baseColor 0 0 0
+              roughness 1
+              metalness 0
+            }
+            geometry DEF WHEEL1 Cylinder {
+              height 0.03
+              radius 0.06
+            }
+          }
+        ]
+        name "solid(5)"
+        boundingObject USE WHEEL1
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -1.0006166881563528e-07
+        axis 0 0 1
+        anchor -0.075 0 -0.065
+      }
+      device [
+        RotationalMotor {
+          name "motor_left"
+          maxVelocity 52.36
+          maxTorque 100
+        }
+        PositionSensor {
+          name "position_left"
+          resolution 0.005235
+        }
+      ]
+      endPoint Solid {
+        translation -0.075 0 -0.065
+        rotation 0.9999999999999974 -5.003083440781756e-08 -5.003066594904458e-08 1.5707996938995772
+        children [
+          Shape {
+            appearance USE BLACK
+            geometry USE WHEEL1
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE WHEEL1
+        physics Physics {
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position -3.892695244642845e-08
+        axis 0 0 1
+        anchor 0.085 0 -0.065
+      }
+      device [
+        RotationalMotor {
+          name "motor_left2"
+          maxVelocity 52.36
+          maxTorque 100
+        }
+        PositionSensor {
+          name "position_left2"
+          resolution 0.005235
+        }
+      ]
+      endPoint Solid {
+        translation 0.085 0 -0.065
+        rotation 0.9999999999999996 -1.9463476223214218e-08 -1.946341068776264e-08 1.570799693899575
+        children [
+          Shape {
+            appearance USE BLACK
+            geometry USE WHEEL1
+          }
+        ]
+        name "solid(4)"
+        boundingObject USE WHEEL1
+        physics Physics {
+        }
+      }
+    }
+    DistanceSensor {
+      translation 0.125 0 0
+      children [
+        DEF SENS Shape {
+          appearance PBRAppearance {
+            baseColor 0.20392156862745098 0.396078431372549 0.6431372549019608
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.01 0.01 0.01
+          }
+        }
+      ]
+      name "distance_sensor"
+      boundingObject USE SENS
+      lookupTable [
+        0 0 0
+        0.05 0 0
+        0.4 255 0
+      ]
+      resolution 1
+    }
+    Transform {
+      translation 0 0.09000000000000001 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.03
+          }
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position -1.7485473819581708e-06
+            axis 0 1 0
+            anchor 0 0.04 0
+          }
+          device [
+            RotationalMotor {
+              name "rotational_motor"
+            }
+            PositionSensor {
+              name "position_sensor"
+            }
+          ]
+          endPoint Solid {
+            translation 0.039999999999938925 0.04 6.994189527829137e-08
+            rotation 0 -1 0 1.7484593562928553e-06
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 0 0 0
+                }
+                geometry Box {
+                  size 0.060000000000000005 0.01 0.01
+                }
+              }
+              DistanceSensor {
+                translation 0.03 0 0
+                name "distance_sensor2"
+                physics Physics {
+                }
+                lookupTable [
+                  0 0 0
+                  0.1 0 0
+                  2 1023 0
+                ]
+              }
+            ]
+            name "solid(2)"
+            physics Physics {
+            }
+          }
+        }
+        HingeJoint {
+          jointParameters HingeJointParameters {
+            position 3.1696882152091083e-07
+            axis 0 1 0
+            anchor 0 0.019999999999999997 0
+          }
+          device [
+            RotationalMotor {
+              name "rotational_gun"
+            }
+            PositionSensor {
+              name "position_gun"
+            }
+          ]
+          endPoint Solid {
+            translation 0.019999999999999032 0 -6.339376430418116e-09
+            rotation 0 1 0 3.1680303253932776e-07
+            children [
+              Shape {
+                geometry Box {
+                  size 0.060000000000000005 0.01 0.01
+                }
+              }
+              DistanceSensor {
+                translation 0.03 0 0
+              }
+            ]
+            name "solid(3)"
+            physics Physics {
+            }
+          }
+        }
+      ]
+    }
+  ]
+  boundingObject USE SH_BODY
+  physics Physics {
+    density -1
+    mass 0.1
+  }
+  controller "u3_exam_sofia"
+}
+Solid {
+  translation 0.6100000000000002 0 0
+  children [
+    DEF OBS Shape {
+      geometry Box {
+        size 0.1 0.19999999999999998 0.30000000000000004
+      }
+    }
+  ]
+  boundingObject USE OBS
 }
