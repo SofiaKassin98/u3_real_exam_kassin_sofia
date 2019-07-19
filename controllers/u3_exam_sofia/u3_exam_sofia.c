@@ -18,14 +18,28 @@
 
 #include <stdio.h>
 
-/*
- * You may want to add macros here.
- */
 #define TIME_STEP 64
 #define PI 3.1416
 
-double b=0;
-double b1=0;
+enum {
+  GO,
+  ENEMY,
+  FREEWAY,
+  OBSTACLE
+};
+
+int h;
+float b, c;
+short int robot_state;
+
+int checkForObstacles(WbDeviceTag distance_sensor) {
+  double distance = wb_distance_sensor_get_value(distance_sensor);
+
+  if (distance > 0.2)
+    return FREEWAY;
+  else
+    return OBSTACLE;
+}
 
 void goRobot(WbDeviceTag wheel_left,WbDeviceTag wheel_left2,
              WbDeviceTag wheel_right,WbDeviceTag wheel_right2) {
@@ -49,14 +63,37 @@ void stopRobot(WbDeviceTag wheel_left,WbDeviceTag wheel_left2,
 
 void turnLeft(WbDeviceTag wheel_left,WbDeviceTag wheel_left2,
                WbDeviceTag wheel_right,WbDeviceTag wheel_right2) {
-  wb_motor_set_position(wheel_right, INFINITY);
-  wb_motor_set_velocity(wheel_right,-2);
-  wb_motor_set_position(wheel_left, INFINITY);
-  wb_motor_set_velocity(wheel_left, 4);
-  wb_motor_set_position(wheel_right2, INFINITY);
-  wb_motor_set_velocity(wheel_right2, -2);
-  wb_motor_set_position(wheel_left2, INFINITY);
-  wb_motor_set_velocity(wheel_left2, 4);
+  wb_motor_set_velocity(wheel_right,4);
+  wb_motor_set_velocity(wheel_left, -2);
+  wb_motor_set_velocity(wheel_right2, 4);
+  wb_motor_set_velocity(wheel_left2, -2);
+}
+
+void radarOn(WbDeviceTag radar_motor) {
+  wb_motor_set_position(radar_motor, INFINITY);
+  wb_motor_set_velocity(radar_motor,0.4);
+}
+
+void stopRadar(WbDeviceTag radar_motor) {
+  wb_motor_set_position(radar_motor, INFINITY);
+  wb_motor_set_velocity(radar_motor,0);
+}
+
+void gunOn(WbDeviceTag gun_motor, float b) {
+  wb_motor_set_position(gun_motor, b);
+  wb_motor_set_velocity(gun_motor,0.3);
+}
+
+void shoot(float a) {
+  if (a<2 && a>1.5) {
+    printf("tha\n");
+  }
+  if (a<1.4 && a>0.8) {
+    printf("tha tha tha\n");
+  }
+  if (a<0.7 && a>0.01) {
+    printf("tha tha tha tha tha tha\n");
+  }
 }
 
 int main(int argc, char **argv)
@@ -67,40 +104,60 @@ int main(int argc, char **argv)
    WbDeviceTag wheel_left = wb_robot_get_device("motor_left");
    WbDeviceTag wheel_right2 = wb_robot_get_device("motor_right2");
    WbDeviceTag wheel_left2 = wb_robot_get_device("motor_left2");
-   WbDeviceTag  radar_motor = wb_robot_get_device("rotational_motor");
+   WbDeviceTag radar_motor = wb_robot_get_device("rotational_motor");
    WbDeviceTag gun_motor = wb_robot_get_device("rotational_gun");
 
 
    /////////position sensor//////////
    WbDeviceTag ps_left = wb_robot_get_device("position_left");
    WbDeviceTag ps_right = wb_robot_get_device("position_right");
+   WbDeviceTag radar_pos = wb_robot_get_device("position_sensor");
    wb_position_sensor_enable(ps_left, TIME_STEP);
    wb_position_sensor_enable(ps_right, TIME_STEP);
+   wb_position_sensor_enable(radar_pos, TIME_STEP);
 
    ///////////distance sensor/////////
    WbDeviceTag ds_r = wb_robot_get_device("distance_sensor");
    wb_distance_sensor_enable(ds_r, TIME_STEP);
+   WbDeviceTag radar_sen = wb_robot_get_device("distance_sensor2");
+   wb_distance_sensor_enable(radar_sen, TIME_STEP);
+   WbDeviceTag gun_sen = wb_robot_get_device("gun_sensor");
+   wb_distance_sensor_enable(gun_sen, TIME_STEP);
 
-   ////////activacion del teclado//
-   wb_keyboard_enable(TIME_STEP);
 
   /////////variables para el encoder///
   //double pos_final, pos_final1;
-  double  a1;
+  double  a,a1;
 
   while (wb_robot_step(TIME_STEP) != -1) {
 
-  a1 = ((wb_distance_sensor_get_value(ds_r)*0.4)/255);
   goRobot(wheel_left,wheel_left2,wheel_right,wheel_right2);
+  radarOn(radar_motor);
 
+  a1 = ((wb_distance_sensor_get_value(ds_r)*0.4)/255);
+  if (a1<=0.35 ||  (h<=50&&h>=1)) {
+    h++;
+    turnLeft(wheel_left,wheel_left2,wheel_right,wheel_right2);
+    printf("L: %f RPM\n",a1);
+  }
+  else {
+    h=0;
+  }
 
+  a = ((wb_distance_sensor_get_value(radar_sen)*2)/1023);
+  if (a<2 || robot_state==ENEMY) {
+    robot_state=ENEMY;
+    stopRobot(wheel_left,wheel_left2,wheel_right,wheel_right2);
+    stopRadar(radar_motor);
+    b=wb_position_sensor_get_value(radar_pos);
+  }
 
-    if (a1<=0.3) {
-      turnLeft(wheel_left,wheel_left2,wheel_right,wheel_right2);
-    }
+  c = ((wb_distance_sensor_get_value(gun_sen)*0.4)/255);
+  if (robot_state==ENEMY) {
+    gunOn(gun_motor,b);
+    shoot(gun_sen);
+  }
 
-
-     printf("Left velocity: %f RPM\n",a1);
 
   };
 
