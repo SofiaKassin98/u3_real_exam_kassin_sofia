@@ -1,15 +1,3 @@
-/*
- * File:          exsm_sofia
- * Date:
- * Description:
- * Author:
- * Modifications:
- */
-
-/*
- * You may need to add include files like <webots/distance_sensor.h> or
- * <webots/differential_wheels.h>, etc.
- */
 #include <webots/robot.h>
 #include <webots/motor.h>
 #include <webots/distance_sensor.h>
@@ -17,6 +5,8 @@
 #include <webots/keyboard.h>
 
 #include <stdio.h>
+
+#include <shoot.h>
 
 #define TIME_STEP 64
 #define PI 3.1416
@@ -29,8 +19,9 @@ enum {
 };
 
 int h;
-float b, c;
+float b, c,d;
 short int robot_state;
+double  a,a1;
 
 int checkForObstacles(WbDeviceTag distance_sensor) {
   double distance = wb_distance_sensor_get_value(distance_sensor);
@@ -84,7 +75,7 @@ void gunOn(WbDeviceTag gun_motor, float b) {
   wb_motor_set_velocity(gun_motor,0.3);
 }
 
-void shoot(float a) {
+/*void shoot(float a) {
   if (a<2 && a>1.5) {
     printf("tha\n");
   }
@@ -94,7 +85,7 @@ void shoot(float a) {
   if (a<0.7 && a>0.01) {
     printf("tha tha tha tha tha tha\n");
   }
-}
+}*/
 
 int main(int argc, char **argv)
 {
@@ -124,11 +115,6 @@ int main(int argc, char **argv)
    WbDeviceTag gun_sen = wb_robot_get_device("gun_sensor");
    wb_distance_sensor_enable(gun_sen, TIME_STEP);
 
-
-  /////////variables para el encoder///
-  //double pos_final, pos_final1;
-  double  a,a1;
-
   while (wb_robot_step(TIME_STEP) != -1) {
 
   goRobot(wheel_left,wheel_left2,wheel_right,wheel_right2);
@@ -138,7 +124,6 @@ int main(int argc, char **argv)
   if (a1<=0.35 ||  (h<=50&&h>=1)) {
     h++;
     turnLeft(wheel_left,wheel_left2,wheel_right,wheel_right2);
-    printf("L: %f RPM\n",a1);
   }
   else {
     h=0;
@@ -152,10 +137,10 @@ int main(int argc, char **argv)
     b=wb_position_sensor_get_value(radar_pos);
   }
 
-  c = ((wb_distance_sensor_get_value(gun_sen)*0.4)/255);
+  c = ((wb_distance_sensor_get_value(gun_sen)*2)/1023);
   if (robot_state==ENEMY) {
     gunOn(gun_motor,b);
-    shoot(gun_sen);
+    d=gun(c);
   }
 
 

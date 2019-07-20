@@ -67,6 +67,7 @@
 ###
 ###-----------------------------------------------------------------------------
 
+C_SOURCES = u3_exam_sofia.c shoot.c
 ### Do not modify: this includes Webots global Makefile.include
 space :=
 space +=

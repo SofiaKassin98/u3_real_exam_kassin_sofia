@@ -2,8 +2,8 @@
 WorldInfo {
 }
 Viewpoint {
-  orientation 1 1.3754877232563256e-16 5.764308270455827e-17 5.812388980384687
-  position 0.1807275827177576 1.2329745724075751 2.186131533673015
+  orientation 0.9909769637469032 0.12803016537852777 0.039660232930676304 5.677245930710856
+  position 0.0441750285093766 1.4684680684136067 1.9802514291139073
 }
 TexturedBackground {
 }
@@ -157,7 +157,7 @@ Robot {
       ]
       endPoint Solid {
         translation 0.085 0 -0.065
-        rotation 0.9999999999999996 -1.9463476223214218e-08 -1.94634106877623e-08 1.570799693899575
+        rotation 0.9999999999999996 -1.9463476223214218e-08 -1.9463410687762244e-08 1.570799693899575
         children [
           Shape {
             appearance USE BLACK
@@ -219,7 +219,7 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.03999999999993929 0.04 6.994189527829227e-08
+            translation 0.039999999999939355 0.04 6.994189527829239e-08
             rotation 0 -1 0 1.7484593562928553e-06
             children [
               Shape {
@@ -262,7 +262,7 @@ Robot {
             }
           ]
           endPoint Solid {
-            translation 0.019999999999999216 0 -6.3393764304181374e-09
+            translation 0.019999999999999248 0 -6.3393764304181416e-09
             rotation 0 1 0 3.1680303253932776e-07
             children [
               Shape {
@@ -277,8 +277,8 @@ Robot {
                 }
                 lookupTable [
                   0 0 0
-                  0.4 0 0
-                  2 255 0
+                  0.1 0 0
+                  2 1023 0
                 ]
               }
             ]
@@ -309,14 +309,15 @@ Solid {
   boundingObject USE OBS
 }
 Solid {
-  translation -0.09000000000000002 0.19999999999999998 -0.5600000000000002
+  translation 0.016251841460593955 0.19999999999999998 -0.5884700928385003
+  rotation 0 -1 0 6.021385939359172
   children [
     DEF ENEMY Shape {
       appearance PBRAppearance {
         baseColor 0.9607843137254902 0.4745098039215686 0
       }
       geometry Box {
-        size 0.2 0.4 0.2
+        size 0.5 0.4 0.2
       }
     }
   ]
