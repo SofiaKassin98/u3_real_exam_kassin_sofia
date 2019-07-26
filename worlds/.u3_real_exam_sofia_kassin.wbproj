@@ -8,5 +8,5 @@ projectionMode: PERSPECTIVE
 selectionDisabled: 0
 viewpointLocked: 0
 orthographicViewHeight: 1.77959
-textFiles: 0 "controllers/u3_exam_sofia/u3_exam_sofia.c" "controllers/u3_exam_sofia/shoot.h" "controllers/u3_exam_sofia/shoot.c"
+textFiles: 2 "controllers/u3_exam_sofia/u3_exam_sofia.c" "controllers/u3_exam_sofia/shoot.h" "controllers/u3_exam_sofia/shoot.c"
 globalOptionalRendering: JointAxes::DistanceSensorRays

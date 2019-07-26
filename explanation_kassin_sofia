@@ -4,26 +4,43 @@ For the u3_real_exam_kassin_sofia  (war machine robot).
 The distance sensor is continuously rotating around the post looking for an enemy.
 When the distance sensor detects an enemy, the robot should stop and the gun should point to the enemy.
  
+Once the gun is pointing to the enemy, it should start to shoot (print and log ”THA TAH THA TAAAAH!!!!”). The more near the enemy, the more emphasis on the shooting (at least 3 different levels).
+
+
+****Funtions****
+For that i create a functions for the impresion of the THA, THA THA THA , THA THA THA THA THA THA and also for the shot.
+
+
+
+****Library****
+Trying to implement a library what i did is to create a function for the gun.
+
+
+
+****Gun distance sensor has 10 bit resolution, with a min range of 10cm and max range of 2m****
+_________________________________________________________________________________________________
+2^(10)-1 = 1023
+     0    |    0   |  0                                 
+    0.1   |    0   |  0
+     2    |  1023  |  0
+
+****Mobile distance sensors have 8 bit resolution, with a min range of 5cm and max range of 40 cm****
+__________________________________________________________________________________________________
 2^(8)-1 = 255  
      0    |   0   |  0                              
    0.05   |   0   |  0
     0.4   |  255  | 0
 Look up table and the resolution with 1
 
-
-Once the gun is pointing to the enemy, it should start to shoot (print and log ”THA TAH THA TAAAAH!!!!”). The more near the enemy, the more emphasis on the shooting (at least 3 different levels).
-Gun distance sensor has 10 bit resolution, with a min range of 10cm and max range of 2m. Mobile distance sensors have 8 bit resolution, with a min range of 5cm and max range of 40 cm.
-
-2^(10)-1 = 1023
-     0    |    0   |  0                                 
-    0.1   |    0   |  0
-     2    |  1023  |  0
-
 You will need to create two objects for testing, one object simulating an enemy and one object simulating an obstacle.
 The Webots world should be saved in such a way all requirements can be showed by just starting the simulation.
 
 
+I did a libary and i also did one for a functions and i implement other functions for the radar and the gun in lines 63-75 aprox ,for do the activation en webots enviroment with the webots functions are the lines 82-106 and then is the while and in that part first i inicializate the robot with it specified parts that is the radar if detect an enemy and the to the gun take the same position to shut and the radar then if I detected an enemy.For the values of the motors as use the same parameters as the previous did it with the data sheets.
 
-                                      
+You can wait for the whole rutine but if you want to see the complete tha tha tha ,you should near the war machine robot to the enemy in order to see it better o the more tha tha tha tha tha. It is not necessary to do it, you can just wait for it.
+
+
+
 
 
